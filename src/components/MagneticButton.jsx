@@ -1,32 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import useEnhancedMotion from '../hooks/useEnhancedMotion.jsx';
 
-export default function MagneticButton({ children, className, href, onClick, ...props }) {
+export default function MagneticButton({ children, className, href, onClick, to, ...props }) {
   const ref = useRef(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [interactive, setInteractive] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return undefined;
-    }
-
-    const pointerQuery = window.matchMedia('(pointer: fine)');
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    const updateInteractive = () => {
-      setInteractive(pointerQuery.matches && !motionQuery.matches);
-    };
-
-    updateInteractive();
-    pointerQuery.addEventListener('change', updateInteractive);
-    motionQuery.addEventListener('change', updateInteractive);
-
-    return () => {
-      pointerQuery.removeEventListener('change', updateInteractive);
-      motionQuery.removeEventListener('change', updateInteractive);
-    };
-  }, []);
+  const interactive = useEnhancedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 220, damping: 22, mass: 0.35 });
+  const springY = useSpring(y, { stiffness: 220, damping: 22, mass: 0.35 });
 
   const handleMouse = (e) => {
     if (!interactive || !ref.current) {
@@ -37,29 +20,36 @@ export default function MagneticButton({ children, className, href, onClick, ...
     const { height, width, left, top } = ref.current.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
     const middleY = clientY - (top + height / 2);
-    // Magnetic pull distance
-    setPosition({ x: middleX * 0.1, y: middleY * 0.1 });
+    x.set(middleX * 0.08);
+    y.set(middleY * 0.08);
   };
 
   const reset = () => {
-    setPosition({ x: 0, y: 0 });
+    x.set(0);
+    y.set(0);
   };
 
-  const { x, y } = position;
+  const ButtonWrapper = to ? Link : href ? 'a' : 'button';
 
-  const ButtonWrapper = href ? 'a' : 'button';
+  useEffect(() => {
+    if (interactive) {
+      return;
+    }
+
+    x.set(0);
+    y.set(0);
+  }, [interactive, x, y]);
 
   return (
     <motion.div
-      style={{ display: 'inline-block', position: 'relative' }}
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
-      animate={{ x: interactive ? x : 0, y: interactive ? y : 0 }}
-      transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
+      style={{ display: 'inline-block', position: 'relative', x: springX, y: springY }}
     >
       <ButtonWrapper 
         className={className} 
+        to={to}
         href={href} 
         onClick={onClick} 
         {...props}

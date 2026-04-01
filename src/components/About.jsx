@@ -55,7 +55,7 @@ export default function About({ sectionId = 'about' }) {
           </div>
 
           <div className="btn-row about-premium__actions">
-            <MagneticButton href="#projects" className="btn-primary">
+            <MagneticButton to="/projects" className="btn-primary">
               See the Work <ArrowUpRight size={16} />
             </MagneticButton>
           </div>

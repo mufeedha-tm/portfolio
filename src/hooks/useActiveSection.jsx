@@ -65,6 +65,9 @@ export default function useActiveSection(sectionIds, enabled = true) {
 
     const mutationObserver = new MutationObserver(() => {
       observeAvailableSections();
+      if (observedSections.size === sectionIds.length) {
+        mutationObserver.disconnect();
+      }
     });
 
     mutationObserver.observe(document.body, {

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.svg';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -7,6 +9,7 @@ export default function Footer() {
     <footer className="site-footer footer-premium">
       <div className="footer-premium__brand">
         <div className="brand">
+          <img src={logo} alt="Mufeedha Logo" className="logo" />
           Mufeedha TM<span className="accent-dot"></span>
         </div>
         <p className="footer-premium__note">
@@ -15,9 +18,9 @@ export default function Footer() {
       </div>
 
       <div className="footer-premium__links">
-        <a href="/projects">Projects</a>
-        <a href="/about">About</a>
-        <a href="/#contact">Contact</a>
+        <Link to="/projects">Projects</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
         <a href="https://github.com/mufeedha-tm" target="_blank" rel="noreferrer">
           GitHub
         </a>

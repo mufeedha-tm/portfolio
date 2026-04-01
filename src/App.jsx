@@ -1,29 +1,26 @@
-import React, { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useMemo, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import { AnimatePresence, motion, useReducedMotion, useScroll } from 'framer-motion';
 import usePrefersDark from './hooks/usePrefersDark.jsx';
-import useActiveSection from './hooks/useActiveSection.jsx';
 import useUiSound from './hooks/useUiSound.jsx';
-import LoadingScreen from './components/LoadingScreen.jsx';
+import useEnhancedMotion from './hooks/useEnhancedMotion.jsx';
 
 const Home = lazy(() => import('./pages/Home.jsx'));
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage.jsx'));
 const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
+const ContactPage = lazy(() => import('./pages/ContactPage.jsx'));
 const CustomCursor = lazy(() => import('./components/CustomCursor.jsx'));
-
-const SECTION_IDS = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
 
 export default function App() {
   const location = useLocation();
   const { scrollYProgress } = useScroll();
   const prefersReducedMotion = useReducedMotion();
+  const enhancedMotion = useEnhancedMotion();
   const [dark, setDark] = usePrefersDark(true);
-  const { soundEnabled, setSoundEnabled, playClick } = useUiSound(false);
-  const [isBooting, setIsBooting] = useState(true);
+  const { playClick } = useUiSound(true);
   const hasMounted = useRef(false);
-  const activeSection = useActiveSection(SECTION_IDS, location.pathname === '/');
 
   const pageSeo = useMemo(
     () => ({
@@ -42,22 +39,14 @@ export default function App() {
         description:
           'Learn more about Mufeedha TM, a full stack developer from Malappuram, Kerala, blending visual craft, responsive design, and modern web engineering.',
       },
+      '/contact': {
+        title: 'Contact | Mufeedha TM Portfolio',
+        description:
+          'Connect with Mufeedha TM for frontend and full stack opportunities, product-focused collaboration, and polished web experience work.',
+      },
     }),
     [],
   );
-
-  useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setIsBooting(false);
-    }, prefersReducedMotion ? 0 : 650);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
-    document.body.classList.toggle('loading', isBooting);
-    return () => document.body.classList.remove('loading');
-  }, [isBooting]);
 
   useEffect(() => {
     if (!hasMounted.current) {
@@ -77,6 +66,14 @@ export default function App() {
       root.classList.remove('theme-transition');
     };
   }, [dark]);
+
+  useEffect(() => {
+    document.body.classList.toggle('enhanced-cursor', enhancedMotion);
+
+    return () => {
+      document.body.classList.remove('enhanced-cursor');
+    };
+  }, [enhancedMotion]);
 
   useEffect(() => {
     const currentSeo = pageSeo[location.pathname] ?? pageSeo['/'];
@@ -104,34 +101,6 @@ export default function App() {
     applyMeta('meta[name="twitter:description"]', currentSeo.description);
   }, [location.hash, location.pathname, pageSeo]);
 
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      return;
-    }
-
-    if (!location.hash) {
-      if (window.scrollY > 40) {
-        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-      }
-      return;
-    }
-
-    const targetId = location.hash.slice(1);
-    const scrollToHash = window.setTimeout(() => {
-      const element = document.getElementById(targetId);
-      if (!element) {
-        return;
-      }
-
-      const targetTop = element.getBoundingClientRect().top + window.scrollY - 108;
-      window.scrollTo({ top: targetTop, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-    }, 50);
-
-    return () => window.clearTimeout(scrollToHash);
-  }, [location.hash, location.pathname, prefersReducedMotion]);
-
-  const isDesktop = typeof window !== 'undefined' && window.innerWidth > 768;
-
   const pageTransition = prefersReducedMotion
     ? {
         initial: { opacity: 1 },
@@ -140,10 +109,10 @@ export default function App() {
         transition: { duration: 0 },
       }
     : {
-        initial: { opacity: 0, y: 30, filter: 'blur(14px)' },
-        animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-        exit: { opacity: 0, y: -24, filter: 'blur(10px)' },
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+        initial: { opacity: 0, y: 14 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -10 },
+        transition: { duration: 0.28, ease: 'easeOut' },
       };
 
   const renderPage = (element) => (
@@ -153,10 +122,10 @@ export default function App() {
   );
 
   return (
-    <div className="app-root">
-      {!isBooting && isDesktop && !prefersReducedMotion ? (
+    <div className={`app-root${enhancedMotion ? ' app-root--enhanced' : ''}`}>
+      {enhancedMotion ? (
         <Suspense fallback={null}>
-          <CustomCursor isDesktop />
+          <CustomCursor isDesktop={enhancedMotion} />
         </Suspense>
       ) : null}
       
@@ -181,27 +150,12 @@ export default function App() {
       
       <Navbar
         dark={dark}
-        activeSection={activeSection}
-        soundEnabled={soundEnabled}
         onToggleTheme={() => {
           playClick('bright');
           setDark((current) => !current);
         }}
-        onToggleSound={() => {
-          setSoundEnabled((current) => {
-            const next = !current;
-            if (!current) {
-              window.setTimeout(() => playClick('bright'), 0);
-            }
-            return next;
-          });
-        }}
         playClick={playClick}
       />
-      
-      <AnimatePresence mode="wait">
-        {isBooting && <LoadingScreen key="loading-screen" />}
-      </AnimatePresence>
 
       <Suspense fallback={<div className="route-fallback" aria-hidden="true" />}>
         <AnimatePresence mode="wait">
@@ -209,6 +163,7 @@ export default function App() {
           <Route path="/" element={renderPage(<Home />)} />
           <Route path="/projects" element={renderPage(<ProjectsPage />)} />
           <Route path="/about" element={renderPage(<AboutPage />)} />
+          <Route path="/contact" element={renderPage(<ContactPage />)} />
           <Route path="*" element={renderPage(<Home />)} />
         </Routes>
         </AnimatePresence>

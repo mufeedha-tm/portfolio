@@ -1,28 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, Moon, Sun, Volume2, VolumeX } from 'lucide-react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-
-function getScrollBehavior() {
-  if (typeof window === 'undefined') {
-    return 'auto';
-  }
-
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-}
+import { Menu, X, ArrowRight, Moon, Sun, GitBranch, ExternalLink } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.svg';
 
 export default function Navbar({
   dark,
-  activeSection,
-  soundEnabled,
   onToggleTheme,
-  onToggleSound,
   playClick,
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,42 +29,17 @@ export default function Navbar({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isHome = location.pathname === '/';
-
   const navItems = [
-    { label: 'Work', sectionId: 'projects', route: '/projects' },
-    { label: 'About', sectionId: 'about', route: '/about' },
-    { label: 'Contact', sectionId: 'contact', route: '/#contact' },
+    { label: 'Home', route: '/' },
+    { label: 'Work', route: '/projects' },
+    { label: 'About', route: '/about' },
+    { label: 'Contact', route: '/contact' },
   ];
-
-  const handleSectionNavigation = (sectionId) => {
-    playClick?.('soft');
-    setMenuOpen(false);
-
-    if (isHome) {
-      const element = document.getElementById(sectionId);
-      if (!element) {
-        return;
-      }
-
-      const targetTop = element.getBoundingClientRect().top + window.scrollY - 108;
-      window.scrollTo({ top: targetTop, behavior: getScrollBehavior() });
-      return;
-    }
-
-    navigate(`/#${sectionId}`);
-  };
 
   const handleBrandClick = (event) => {
     event.preventDefault();
     playClick?.('bright');
     setMenuOpen(false);
-
-    if (isHome) {
-      window.scrollTo({ top: 0, behavior: getScrollBehavior() });
-      return;
-    }
-
     navigate('/');
   };
 
@@ -83,36 +47,23 @@ export default function Navbar({
     <nav className={`nav-wrapper${scrolled ? ' is-scrolled' : ''}${hidden && !menuOpen ? ' is-hidden' : ''}`}>
       <div className="nav">
         <NavLink to="/" className="brand" onClick={handleBrandClick}>
+          <img src={logo} alt="Mufeedha Logo" className="logo" />
           Mufeedha<span className="accent-dot"></span>
         </NavLink>
         
         <ul className="nav-links">
           {navItems.map((item) => (
             <li key={item.label}>
-              {isHome ? (
-                <button
-                  type="button"
-                  className={`nav-link-btn${activeSection === item.sectionId ? ' active' : ''}`}
-                  onClick={() => handleSectionNavigation(item.sectionId)}
-                >
-                  {item.label}
-                </button>
-              ) : (
-                <NavLink
-                  to={item.route}
-                  className={({ isActive }) =>
-                    item.route.startsWith('/#')
-                      ? 'nav-link-btn'
-                      : `nav-link-btn${isActive ? ' active' : ''}`
-                  }
-                  onClick={() => {
-                    playClick?.('soft');
-                    setMenuOpen(false);
-                  }}
-                >
-                  {item.label}
-                </NavLink>
-              )}
+              <NavLink
+                to={item.route}
+                className={({ isActive }) => `nav-link-btn${isActive ? ' active' : ''}`}
+                onClick={() => {
+                  playClick?.('soft');
+                  setMenuOpen(false);
+                }}
+              >
+                {item.label}
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -127,16 +78,37 @@ export default function Navbar({
           >
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
+          <a
+            href="https://github.com/mufeedha-tm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-btn"
+            aria-label="Visit GitHub profile"
+            title="Visit GitHub profile"
+            onClick={() => playClick?.('soft')}
+          >
+            <GitBranch size={18} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/mufeedha-tm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-btn"
+            aria-label="Visit LinkedIn profile"
+            title="Visit LinkedIn profile"
+            onClick={() => playClick?.('soft')}
+          >
+            <ExternalLink size={18} />
+          </a>
           <button
             type="button"
-            className="icon-btn sound-toggle"
-            aria-label={soundEnabled ? 'Disable interface sounds' : 'Enable interface sounds'}
-            title={soundEnabled ? 'Disable interface sounds' : 'Enable interface sounds'}
-            onClick={onToggleSound}
+            className="btn-primary"
+            onClick={() => {
+              playClick?.('bright');
+              setMenuOpen(false);
+              navigate('/contact');
+            }}
           >
-            {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
-          </button>
-          <button type="button" className="btn-primary" onClick={() => handleSectionNavigation('contact')}>
             Let's Talk <ArrowRight size={16} />
           </button>
           <button
@@ -162,14 +134,17 @@ export default function Navbar({
             transition={{ duration: 0.3 }}
           >
             {navItems.map((item) => (
-              <button 
+              <NavLink
                 key={item.label}
-                type="button"
-                className={`mobile-menu-link${activeSection === item.sectionId ? ' active' : ''}`}
-                onClick={() => handleSectionNavigation(item.sectionId)}
+                to={item.route}
+                className={({ isActive }) => `mobile-menu-link${isActive ? ' active' : ''}`}
+                onClick={() => {
+                  playClick?.('soft');
+                  setMenuOpen(false);
+                }}
               >
                 {item.label}
-              </button>
+              </NavLink>
             ))}
           </motion.div>
         )}

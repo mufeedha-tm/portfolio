@@ -4,6 +4,7 @@ import { ArrowUpRight, Blocks, Code, Sparkles } from 'lucide-react';
 import profile from '../assets/profile-optimized.jpg';
 import TiltCard from './TiltCard.jsx';
 import MagneticButton from './MagneticButton.jsx';
+import useEnhancedMotion from '../hooks/useEnhancedMotion.jsx';
 
 const roles = ['Full Stack Product Experiences', 'Premium React Interfaces', 'Modern MERN-Driven Builds'];
 const signals = ['Full stack thinking', 'Polished, responsive execution', 'Professional project storytelling'];
@@ -11,13 +12,14 @@ const spotlight = ['Interview IQ', 'Task Flow', 'Majestic Pearl'];
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
+  const enhancedMotion = useEnhancedMotion();
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1000], prefersReducedMotion ? [0, 0] : [0, 160]);
-  const opacity = useTransform(scrollY, [0, 520], prefersReducedMotion ? [1, 1] : [1, 0.25]);
+  const y = useTransform(scrollY, [0, 1000], enhancedMotion ? [0, 120] : [0, 0]);
+  const opacity = useTransform(scrollY, [0, 520], enhancedMotion ? [1, 0.45] : [1, 1]);
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || !enhancedMotion) {
       return undefined;
     }
 
@@ -26,7 +28,7 @@ export default function Hero() {
     }, 2800);
 
     return () => window.clearInterval(interval);
-  }, [prefersReducedMotion]);
+  }, [enhancedMotion, prefersReducedMotion]);
 
   return (
     <section className="hero hero-premium" id="home">
@@ -55,10 +57,10 @@ export default function Hero() {
                 <motion.div
                   key={roleIndex}
                   className="hero-premium__role-text"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: enhancedMotion ? 20 : 0 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  exit={{ opacity: 0, y: enhancedMotion ? -20 : 0 }}
+                  transition={{ duration: enhancedMotion ? 0.35 : 0.15, ease: 'easeOut' }}
                 >
                   {roles[roleIndex]}
                 </motion.div>
@@ -72,10 +74,10 @@ export default function Hero() {
           </p>
 
           <div className="btn-row hero-premium__actions">
-            <MagneticButton href="#projects" className="btn-primary">
+            <MagneticButton to="/projects" className="btn-primary">
               View Selected Work <ArrowUpRight size={18} />
             </MagneticButton>
-            <MagneticButton href="#contact" className="btn-ghost">
+            <MagneticButton to="/contact" className="btn-ghost">
               Start a Conversation
             </MagneticButton>
           </div>

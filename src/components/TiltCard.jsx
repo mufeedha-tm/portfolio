@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import useEnhancedMotion from '../hooks/useEnhancedMotion.jsx';
 
 const spring = {
   type: "spring",
@@ -9,43 +10,21 @@ const spring = {
 
 export default function TiltCard({ children, className = '', maxRotate = 4 }) {
   const ref = useRef(null);
-  const [interactive, setInteractive] = useState(false);
+  const interactive = useEnhancedMotion();
+  const frameRef = useRef(null);
   
   const width = useRef(0);
   const height = useRef(0);
   const left = useRef(0);
   const top = useRef(0);
 
-  const [isHovered, setIsHovered] = useState(false);
-
-  const dx = useSpring(0, spring);
-  const dy = useSpring(0, spring);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return undefined;
-    }
-
-    const pointerQuery = window.matchMedia('(pointer: fine)');
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    const updateInteractive = () => {
-      setInteractive(pointerQuery.matches && !motionQuery.matches);
-    };
-
-    updateInteractive();
-    pointerQuery.addEventListener('change', updateInteractive);
-    motionQuery.addEventListener('change', updateInteractive);
-
-    return () => {
-      pointerQuery.removeEventListener('change', updateInteractive);
-      motionQuery.removeEventListener('change', updateInteractive);
-    };
-  }, []);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const dx = useSpring(rawX, spring);
+  const dy = useSpring(rawY, spring);
 
   const handleMouseMove = (e) => {
     if (!interactive || !ref.current) return;
-    if (!ref.current) return;
     const { clientX, clientY } = e;
     const x = clientX - left.current - width.current / 2;
     const y = clientY - top.current - height.current / 2;
@@ -53,13 +32,19 @@ export default function TiltCard({ children, className = '', maxRotate = 4 }) {
     const rotateX = (y / (height.current / 2)) * -maxRotate;
     const rotateY = (x / (width.current / 2)) * maxRotate;
 
-    dx.set(rotateY);
-    dy.set(rotateX);
+    if (frameRef.current) {
+      return;
+    }
+
+    frameRef.current = window.requestAnimationFrame(() => {
+      rawX.set(rotateY);
+      rawY.set(rotateX);
+      frameRef.current = null;
+    });
   };
 
   const handleMouseEnter = () => {
     if (!interactive) return;
-    setIsHovered(true);
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     width.current = rect.width;
@@ -69,10 +54,26 @@ export default function TiltCard({ children, className = '', maxRotate = 4 }) {
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
-    dx.set(0);
-    dy.set(0);
+    rawX.set(0);
+    rawY.set(0);
   };
+
+  useEffect(() => {
+    if (interactive) {
+      return undefined;
+    }
+
+    rawX.set(0);
+    rawY.set(0);
+
+    return undefined;
+  }, [interactive, rawX, rawY]);
+
+  useEffect(() => () => {
+    if (frameRef.current) {
+      window.cancelAnimationFrame(frameRef.current);
+    }
+  }, []);
 
   return (
     <motion.div
@@ -85,10 +86,10 @@ export default function TiltCard({ children, className = '', maxRotate = 4 }) {
         rotateX: interactive ? dy : 0,
         rotateY: interactive ? dx : 0,
         transformStyle: 'preserve-3d',
-        perspective: interactive ? 1000 : 'none',
+        perspective: interactive ? 1000 : undefined,
       }}
     >
-      <div style={{ transform: interactive && isHovered ? 'translateZ(20px)' : 'translateZ(0px)', transition: 'transform 0.3s ease', height: '100%' }}>
+      <div style={{ transform: interactive ? 'translateZ(16px)' : 'translateZ(0px)', transition: 'transform 0.3s ease', height: '100%' }}>
         {children}
       </div>
     </motion.div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SplitText from './SplitText.jsx';
+import useEnhancedMotion from '../hooks/useEnhancedMotion.jsx';
 
 const skillCategories = [
   {
@@ -19,6 +20,7 @@ const skillCategories = [
 
 export default function Skills({ sectionId = 'skills' }) {
   const prefersReducedMotion = useReducedMotion();
+  const enhancedMotion = useEnhancedMotion();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -40,7 +42,9 @@ export default function Skills({ sectionId = 'skills' }) {
   return (
     <section id={sectionId} className="container" style={{ position: 'relative' }}>
       
-      <div className="glow" style={{ width: '60vw', height: '60vw', background: 'radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 60%)', left: '80%', top: '50%' }}></div>
+      {enhancedMotion ? (
+        <div className="glow" style={{ width: '60vw', height: '60vw', background: 'radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 60%)', left: '80%', top: '50%' }}></div>
+      ) : null}
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -102,7 +106,7 @@ export default function Skills({ sectionId = 'skills' }) {
                       color: 'var(--text-primary)',
                       fontWeight: 500,
                       fontSize: '0.95rem',
-                      cursor: 'none',
+                      cursor: 'pointer',
                       transition: 'border-color 0.3s'
                     }}
                   >

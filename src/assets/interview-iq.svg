@@ -1,0 +1,63 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="48" fill="#0A0908"/>
+  <rect x="28" y="28" width="1144" height="744" rx="32" fill="url(#panel)" stroke="rgba(255,255,255,0.08)"/>
+  <circle cx="968" cy="148" r="170" fill="url(#glowA)"/>
+  <circle cx="182" cy="668" r="220" fill="url(#glowB)"/>
+  <rect x="104" y="96" width="992" height="608" rx="30" fill="#13100E" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="148" y="136" width="904" height="80" rx="22" fill="#171311"/>
+  <text x="186" y="186" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="26" font-weight="700">Interview IQ</text>
+  <rect x="820" y="158" width="188" height="36" rx="18" fill="url(#badge)"/>
+  <text x="914" y="181" text-anchor="middle" fill="#0F0A08" font-family="Arial, sans-serif" font-size="15" font-weight="700">AI Interview Session</text>
+  <rect x="148" y="252" width="560" height="408" rx="28" fill="#0E0C0A" stroke="rgba(255,255,255,0.06)"/>
+  <text x="188" y="308" fill="#BFAF9F" font-family="Arial, sans-serif" font-size="18">Frontend Developer Role</text>
+  <text x="188" y="370" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="34" font-weight="700">"Explain how React Context</text>
+  <text x="188" y="414" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="34" font-weight="700">helps avoid prop drilling."</text>
+  <rect x="188" y="468" width="480" height="124" rx="22" fill="url(#answer)" stroke="rgba(255,255,255,0.06)"/>
+  <text x="220" y="520" fill="#DDD0C3" font-family="Arial, sans-serif" font-size="18">AI feedback:</text>
+  <text x="220" y="560" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Clear explanation. Add a real-world</text>
+  <text x="220" y="592" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="24" font-weight="700">example for stronger interview impact.</text>
+  <rect x="744" y="252" width="308" height="184" rx="26" fill="#100D0B" stroke="rgba(255,255,255,0.06)"/>
+  <text x="780" y="304" fill="#BFAF9F" font-family="Arial, sans-serif" font-size="17">Session Metrics</text>
+  <text x="780" y="362" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="46" font-weight="700">92%</text>
+  <text x="780" y="392" fill="#8FC1D2" font-family="Arial, sans-serif" font-size="18">Confidence match</text>
+  <rect x="780" y="410" width="196" height="10" rx="5" fill="#2A241F"/>
+  <rect x="780" y="410" width="168" height="10" rx="5" fill="url(#line)"/>
+  <rect x="744" y="458" width="308" height="202" rx="26" fill="#100D0B" stroke="rgba(255,255,255,0.06)"/>
+  <text x="780" y="510" fill="#BFAF9F" font-family="Arial, sans-serif" font-size="17">Generated Topics</text>
+  <g fill="#F6EFE7" font-family="Arial, sans-serif" font-size="20" font-weight="600">
+    <text x="780" y="562">Authentication</text>
+    <text x="780" y="602">REST APIs</text>
+    <text x="780" y="642">React Architecture</text>
+  </g>
+  <g fill="#8FC1D2">
+    <circle cx="760" cy="555" r="7"/>
+    <circle cx="760" cy="595" r="7"/>
+    <circle cx="760" cy="635" r="7"/>
+  </g>
+  <defs>
+    <linearGradient id="panel" x1="64" y1="72" x2="1138" y2="748" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#120F0C"/>
+      <stop offset="1" stop-color="#090807"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="820" y1="158" x2="1008" y2="194" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D1A16C"/>
+      <stop offset="1" stop-color="#8FC1D2"/>
+    </linearGradient>
+    <linearGradient id="answer" x1="188" y1="468" x2="668" y2="592" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17120F"/>
+      <stop offset="1" stop-color="#1F1814"/>
+    </linearGradient>
+    <linearGradient id="line" x1="780" y1="410" x2="948" y2="410" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D1A16C"/>
+      <stop offset="1" stop-color="#8FC1D2"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(968 148) rotate(90) scale(170)">
+      <stop stop-color="#8FC1D2" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#8FC1D2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(182 668) rotate(90) scale(220)">
+      <stop stop-color="#D1A16C" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#D1A16C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

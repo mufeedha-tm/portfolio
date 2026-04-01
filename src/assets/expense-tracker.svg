@@ -1,0 +1,80 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="48" fill="#0E0B09"/>
+  <rect x="28" y="28" width="1144" height="744" rx="32" fill="url(#bg)" stroke="rgba(255,255,255,0.08)"/>
+  <g opacity="0.55">
+    <circle cx="999" cy="157" r="146" fill="url(#glowA)"/>
+    <circle cx="230" cy="692" r="210" fill="url(#glowB)"/>
+  </g>
+  <rect x="104" y="102" width="992" height="596" rx="28" fill="#15110D" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="148" y="146" width="286" height="220" rx="24" fill="url(#cardA)"/>
+  <text x="184" y="205" fill="#F8F0E7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Expense Tracker</text>
+  <text x="184" y="246" fill="#C8BAAB" font-family="Arial, sans-serif" font-size="18">Monthly spend</text>
+  <text x="184" y="308" fill="#F8F0E7" font-family="Arial, sans-serif" font-size="52" font-weight="700">$2,480</text>
+  <rect x="184" y="329" width="164" height="12" rx="6" fill="#F07854" fill-opacity="0.42"/>
+  <rect x="450" y="146" width="600" height="220" rx="24" fill="#100D0A" stroke="rgba(255,255,255,0.06)"/>
+  <text x="490" y="196" fill="#C8BAAB" font-family="Arial, sans-serif" font-size="18">Weekly Overview</text>
+  <path d="M512 297C552 254 581 266 613 288C654 316 687 258 727 258C762 258 780 279 818 304C846 322 875 321 911 282C937 254 971 236 1010 242" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="1010" cy="242" r="10" fill="#F8F0E7"/>
+  <rect x="148" y="394" width="424" height="248" rx="24" fill="#100D0A" stroke="rgba(255,255,255,0.06)"/>
+  <text x="188" y="444" fill="#C8BAAB" font-family="Arial, sans-serif" font-size="18">Recent Transactions</text>
+  <g fill="#F8F0E7" font-family="Arial, sans-serif" font-size="22" font-weight="600">
+    <text x="188" y="500">Groceries</text>
+    <text x="188" y="556">Transport</text>
+    <text x="188" y="612">Subscriptions</text>
+  </g>
+  <g fill="#D5C7B8" font-family="Arial, sans-serif" font-size="20">
+    <text x="450" y="500" text-anchor="end">-$120</text>
+    <text x="450" y="556" text-anchor="end">-$42</text>
+    <text x="450" y="612" text-anchor="end">-$18</text>
+  </g>
+  <g fill="#8FC1D2">
+    <rect x="188" y="516" width="290" height="2" rx="1"/>
+    <rect x="188" y="572" width="290" height="2" rx="1"/>
+  </g>
+  <rect x="598" y="394" width="452" height="248" rx="24" fill="url(#cardB)"/>
+  <text x="638" y="444" fill="#F8F0E7" font-family="Arial, sans-serif" font-size="22" font-weight="700">Category Breakdown</text>
+  <circle cx="746" cy="536" r="76" stroke="#31261D" stroke-width="34"/>
+  <path d="M746 460A76 76 0 0 1 814 502" stroke="#D1A16C" stroke-width="34" stroke-linecap="round"/>
+  <path d="M814 502A76 76 0 0 1 784 599" stroke="#8FC1D2" stroke-width="34" stroke-linecap="round"/>
+  <path d="M784 599A76 76 0 0 1 692 596" stroke="#F07854" stroke-width="34" stroke-linecap="round"/>
+  <g fill="#F8F0E7" font-family="Arial, sans-serif" font-size="18">
+    <text x="862" y="502">Food</text>
+    <text x="862" y="548">Bills</text>
+    <text x="862" y="594">Travel</text>
+  </g>
+  <g fill="#D1A16C">
+    <circle cx="832" cy="495" r="8"/>
+  </g>
+  <g fill="#8FC1D2">
+    <circle cx="832" cy="541" r="8"/>
+  </g>
+  <g fill="#F07854">
+    <circle cx="832" cy="587" r="8"/>
+  </g>
+  <defs>
+    <linearGradient id="bg" x1="72" y1="88" x2="1136" y2="740" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#120F0B"/>
+      <stop offset="1" stop-color="#0A0907"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="148" y1="146" x2="434" y2="366" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#19130F"/>
+      <stop offset="1" stop-color="#2A1F18"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="598" y1="394" x2="1050" y2="642" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17120E"/>
+      <stop offset="1" stop-color="#221913"/>
+    </linearGradient>
+    <linearGradient id="line" x1="512" y1="244" x2="1010" y2="298" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D1A16C"/>
+      <stop offset="1" stop-color="#8FC1D2"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(999 157) rotate(90) scale(146)">
+      <stop stop-color="#8FC1D2" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#8FC1D2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(230 692) rotate(90) scale(210)">
+      <stop stop-color="#D1A16C" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#D1A16C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

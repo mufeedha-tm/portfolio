@@ -1,0 +1,64 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="48" fill="#090806"/>
+  <rect x="32" y="32" width="1136" height="736" rx="34" fill="url(#bg)" stroke="rgba(255,255,255,0.08)"/>
+  <circle cx="986" cy="148" r="176" fill="url(#glowA)"/>
+  <circle cx="196" cy="684" r="194" fill="url(#glowB)"/>
+  <rect x="104" y="98" width="992" height="604" rx="30" fill="#13100E" stroke="rgba(255,255,255,0.08)"/>
+  <text x="152" y="160" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="28" font-weight="700">Task Flow</text>
+  <text x="152" y="194" fill="#B8AEA1" font-family="Arial, sans-serif" font-size="18">Focused productivity dashboard</text>
+  <rect x="152" y="240" width="278" height="406" rx="28" fill="#110D0B" stroke="rgba(255,255,255,0.06)"/>
+  <text x="188" y="292" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="22" font-weight="700">Today</text>
+  <g>
+    <rect x="188" y="328" width="206" height="54" rx="18" fill="url(#cardA)"/>
+    <text x="216" y="362" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="18" font-weight="600">Plan landing page</text>
+    <circle cx="364" cy="355" r="12" fill="#8FC1D2"/>
+  </g>
+  <g>
+    <rect x="188" y="404" width="206" height="54" rx="18" fill="#171311"/>
+    <text x="216" y="438" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="18" font-weight="600">Finish task states</text>
+    <circle cx="364" cy="431" r="12" fill="#D1A16C"/>
+  </g>
+  <g>
+    <rect x="188" y="480" width="206" height="54" rx="18" fill="#171311"/>
+    <text x="216" y="514" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="18" font-weight="600">Deploy updates</text>
+    <circle cx="364" cy="507" r="12" fill="#F07854"/>
+  </g>
+  <rect x="462" y="240" width="586" height="188" rx="28" fill="#0F0C0A" stroke="rgba(255,255,255,0.06)"/>
+  <text x="504" y="292" fill="#B8AEA1" font-family="Arial, sans-serif" font-size="18">Weekly Progress</text>
+  <path d="M532 366C592 322 624 320 672 350C722 382 770 394 822 340C868 292 920 284 978 332" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="978" cy="332" r="10" fill="#F6EFE7"/>
+  <rect x="462" y="458" width="586" height="188" rx="28" fill="url(#cardB)"/>
+  <text x="504" y="510" fill="#F6EFE7" font-family="Arial, sans-serif" font-size="22" font-weight="700">Workflow Status</text>
+  <rect x="504" y="548" width="452" height="18" rx="9" fill="#2A241F"/>
+  <rect x="504" y="548" width="286" height="18" rx="9" fill="#D1A16C"/>
+  <rect x="504" y="586" width="452" height="18" rx="9" fill="#2A241F"/>
+  <rect x="504" y="586" width="338" height="18" rx="9" fill="#8FC1D2"/>
+  <text x="972" y="562" fill="#DDD0C3" font-family="Arial, sans-serif" font-size="16" text-anchor="end">Design 63%</text>
+  <text x="972" y="600" fill="#DDD0C3" font-family="Arial, sans-serif" font-size="16" text-anchor="end">Development 75%</text>
+  <defs>
+    <linearGradient id="bg" x1="72" y1="60" x2="1128" y2="748" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#120F0C"/>
+      <stop offset="1" stop-color="#090806"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="188" y1="328" x2="394" y2="382" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B1512"/>
+      <stop offset="1" stop-color="#241C16"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="462" y1="458" x2="1048" y2="646" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17120F"/>
+      <stop offset="1" stop-color="#221913"/>
+    </linearGradient>
+    <linearGradient id="line" x1="532" y1="330" x2="978" y2="344" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D1A16C"/>
+      <stop offset="1" stop-color="#8FC1D2"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(986 148) rotate(90) scale(176)">
+      <stop stop-color="#8FC1D2" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#8FC1D2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(196 684) rotate(90) scale(194)">
+      <stop stop-color="#D1A16C" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#D1A16C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

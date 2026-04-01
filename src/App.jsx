@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
@@ -7,18 +7,18 @@ import usePrefersDark from './hooks/usePrefersDark.jsx';
 import useUiSound from './hooks/useUiSound.jsx';
 import useEnhancedMotion from './hooks/useEnhancedMotion.jsx';
 
-const Home = lazy(() => import('./pages/Home.jsx'));
-const ProjectsPage = lazy(() => import('./pages/ProjectsPage.jsx'));
-const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
-const ContactPage = lazy(() => import('./pages/ContactPage.jsx'));
-const CustomCursor = lazy(() => import('./components/CustomCursor.jsx'));
+import Home from './pages/Home.jsx';
+import ProjectsPage from './pages/ProjectsPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
+import ContactPage from './pages/ContactPage.jsx';
+import CustomCursor from './components/CustomCursor.jsx';
 
 export default function App() {
   const location = useLocation();
   const { scrollYProgress } = useScroll();
   const prefersReducedMotion = useReducedMotion();
   const enhancedMotion = useEnhancedMotion();
-  const [dark, setDark] = usePrefersDark(true);
+  const [dark, setDark] = usePrefersDark(false);
   const { playClick } = useUiSound(true);
   const hasMounted = useRef(false);
 
@@ -124,9 +124,7 @@ export default function App() {
   return (
     <div className={`app-root${enhancedMotion ? ' app-root--enhanced' : ''}`}>
       {enhancedMotion ? (
-        <Suspense fallback={null}>
-          <CustomCursor isDesktop={enhancedMotion} />
-        </Suspense>
+        <CustomCursor isDesktop={enhancedMotion} />
       ) : null}
       
       {/* Scroll Progress Bar */}
@@ -157,8 +155,7 @@ export default function App() {
         playClick={playClick}
       />
 
-      <Suspense fallback={<div className="route-fallback" aria-hidden="true" />}>
-        <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={renderPage(<Home />)} />
           <Route path="/projects" element={renderPage(<ProjectsPage />)} />
@@ -166,8 +163,7 @@ export default function App() {
           <Route path="/contact" element={renderPage(<ContactPage />)} />
           <Route path="*" element={renderPage(<Home />)} />
         </Routes>
-        </AnimatePresence>
-      </Suspense>
+      </AnimatePresence>
       <Footer />
     </div>
   );

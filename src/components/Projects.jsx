@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Eye, GitBranch, ExternalLink, Server } from 'lucide-react';
 import interviewIq from '../assets/interview-iq.svg';
@@ -9,8 +9,7 @@ import expenseTracker from '../assets/expense-tracker.svg';
 import TiltCard from './TiltCard.jsx';
 import SplitText from './SplitText.jsx';
 import MagneticButton from './MagneticButton.jsx';
-
-const ProjectModal = lazy(() => import('./ProjectModal.jsx'));
+import ProjectModal from './ProjectModal.jsx';
 
 const projectsData = [
   {
@@ -180,7 +179,6 @@ export default function Projects({ sectionId = 'projects' }) {
                       <img
                         src={project.image}
                         alt={project.title}
-                        loading="lazy"
                         decoding="async"
                         sizes={project.featured ? '(max-width: 900px) 100vw, 54vw' : '(max-width: 900px) 100vw, 46vw'}
                         style={project.contain ? { objectFit: 'contain', padding: '3rem', background: 'rgba(255,255,255,0.92)' } : undefined}
@@ -281,9 +279,7 @@ export default function Projects({ sectionId = 'projects' }) {
         </AnimatePresence>
       </div>
 
-      <Suspense fallback={null}>
-        <ProjectModal project={selectedProject} isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} />
-      </Suspense>
+      <ProjectModal project={selectedProject} isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} />
     </section>
   );
 }
